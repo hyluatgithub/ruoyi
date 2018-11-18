@@ -111,6 +111,20 @@
             <version>${ruoyi.version}</version>
         </dependency>
 
+		<!-- 内容管理-->
+		<dependency>
+			<groupId>com.ruoyi</groupId>
+			<artifactId>hylu-content</artifactId>
+			<version>${ruoyi.version}</version>
+		</dependency>
+
+		<!-- ruoyi测试-->
+		<dependency>
+			<groupId>com.ruoyi</groupId>
+			<artifactId>ruoyi-test</artifactId>
+			<version>${ruoyi.version}</version>
+		</dependency>
+
 
 		<!-- pagehelper 分页插件 -->
 		<dependency>

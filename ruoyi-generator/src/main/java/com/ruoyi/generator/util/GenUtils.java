@@ -23,7 +23,7 @@ public class GenUtils
     private static final String PROJECT_PATH = "main/java/com/ruoyi";
 
     /** mybatis空间路径 */
-    private static final String MYBATIS_PATH = "main/resources/mybatis";
+    private static final String MYBATIS_PATH = "main/resources/mapper";
 
     /** html空间路径 */
     private static final String TEMPLATES_PATH = "main/resources/templates";
@@ -144,7 +144,7 @@ public class GenUtils
 
         if (template.contains("ServiceImpl.java.vm"))
         {
-            return javaPath + "service" + "/" + className + "ServiceImpl.java";
+            return javaPath + "service" + "/impl/" + className + "ServiceImpl.java";
         }
 
         if (template.contains("Controller.java.vm"))

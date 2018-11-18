@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.test.mapper.DemoMapper">
+    
+    <resultMap type="com.ruoyi.test.domain.Demo" id="DemoResult">
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+    </resultMap>
+	
+	<sql id="selectDemoVo">
+        select id, name from demo
+    </sql>
+	
+    <select id="selectDemoList" parameterType="com.ruoyi.test.domain.Demo" resultMap="DemoResult">
+        <include refid="selectDemoVo"/>
+        <where>  
+            <if test="id != null "> and id = #{id}</if>
+             <if test="name != null  and name != '' "> and name = #{name}</if>
+         </where>
+    </select>
+    
+    <select id="selectDemoById" parameterType="Integer" resultMap="DemoResult">
+        <include refid="selectDemoVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertDemo" parameterType="com.ruoyi.test.domain.Demo">
+        insert into demo
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null  ">id,</if>
+			<if test="name != null  and name != ''  ">name,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null  ">#{id},</if>
+			<if test="name != null  and name != ''  ">#{name},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateDemo" parameterType="com.ruoyi.test.domain.Demo">
+        update demo
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null  and name != ''  ">name = #{name},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+	<delete id="deleteDemoById" parameterType="Integer">
+        delete from demo where id = #{id}
+    </delete>
+	
+    <delete id="deleteDemoByIds" parameterType="String">
+        delete from demo where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.content.mapper.ContentMapper">
+    
+    <resultMap type="com.ruoyi.content.domain.Content" id="ContentResult">
+        <result property="id"    column="id"    />
+        <result property="title"    column="title"    />
+        <result property="typeCode"    column="type_code"    />
+        <result property="typeName"    column="type_name"    />
+        <result property="itemCode"    column="item_code"    />
+        <result property="itemName"    column="item_name"    />
+        <result property="content"    column="content"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="delFlag"    column="del_flag"    />
+    </resultMap>
+	
+	<sql id="selectContentVo">
+        select id, title, type_code, type_name, item_code, item_name, content, create_by, create_time, update_by, update_time, del_flag from m_content
+    </sql>
+	
+    <select id="selectContentList" parameterType="com.ruoyi.content.domain.Content" resultMap="ContentResult">
+        <include refid="selectContentVo"/>
+        <where>  
+            <if test="id != null "> and id = #{id}</if>
+             <if test="title != null  and title != '' "> and title = #{title}</if>
+             <if test="typeCode != null  and typeCode != '' "> and type_code = #{typeCode}</if>
+             <if test="typeName != null  and typeName != '' "> and type_name = #{typeName}</if>
+             <if test="itemCode != null  and itemCode != '' "> and item_code = #{itemCode}</if>
+             <if test="itemName != null  and itemName != '' "> and item_name = #{itemName}</if>
+             <if test="content != null  and content != '' "> and content = #{content}</if>
+             <if test="createBy != null  and createBy != '' "> and create_by = #{createBy}</if>
+             <if test="createTime != null "> and create_time = #{createTime}</if>
+             <if test="updateBy != null  and updateBy != '' "> and update_by = #{updateBy}</if>
+             <if test="updateTime != null "> and update_time = #{updateTime}</if>
+             <if test="delFlag != null  and delFlag != '' "> and del_flag = #{delFlag}</if>
+         </where>
+    </select>
+    
+    <select id="selectContentById" parameterType="Integer" resultMap="ContentResult">
+        <include refid="selectContentVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertContent" parameterType="com.ruoyi.content.domain.Content">
+        insert into m_content
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null  ">id,</if>
+			<if test="title != null  and title != ''  ">title,</if>
+			<if test="typeCode != null  and typeCode != ''  ">type_code,</if>
+			<if test="typeName != null  and typeName != ''  ">type_name,</if>
+			<if test="itemCode != null  and itemCode != ''  ">item_code,</if>
+			<if test="itemName != null  and itemName != ''  ">item_name,</if>
+			<if test="content != null  and content != ''  ">content,</if>
+			<if test="createBy != null  and createBy != ''  ">create_by,</if>
+			<if test="createTime != null  ">create_time,</if>
+			<if test="updateBy != null  and updateBy != ''  ">update_by,</if>
+			<if test="updateTime != null  ">update_time,</if>
+			<if test="delFlag != null  and delFlag != ''  ">del_flag,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null  ">#{id},</if>
+			<if test="title != null  and title != ''  ">#{title},</if>
+			<if test="typeCode != null  and typeCode != ''  ">#{typeCode},</if>
+			<if test="typeName != null  and typeName != ''  ">#{typeName},</if>
+			<if test="itemCode != null  and itemCode != ''  ">#{itemCode},</if>
+			<if test="itemName != null  and itemName != ''  ">#{itemName},</if>
+			<if test="content != null  and content != ''  ">#{content},</if>
+			<if test="createBy != null  and createBy != ''  ">#{createBy},</if>
+			<if test="createTime != null  ">#{createTime},</if>
+			<if test="updateBy != null  and updateBy != ''  ">#{updateBy},</if>
+			<if test="updateTime != null  ">#{updateTime},</if>
+			<if test="delFlag != null  and delFlag != ''  ">#{delFlag},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateContent" parameterType="com.ruoyi.content.domain.Content">
+        update m_content
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="title != null  and title != ''  ">title = #{title},</if>
+            <if test="typeCode != null  and typeCode != ''  ">type_code = #{typeCode},</if>
+            <if test="typeName != null  and typeName != ''  ">type_name = #{typeName},</if>
+            <if test="itemCode != null  and itemCode != ''  ">item_code = #{itemCode},</if>
+            <if test="itemName != null  and itemName != ''  ">item_name = #{itemName},</if>
+            <if test="content != null  and content != ''  ">content = #{content},</if>
+            <if test="createBy != null  and createBy != ''  ">create_by = #{createBy},</if>
+            <if test="createTime != null  ">create_time = #{createTime},</if>
+            <if test="updateBy != null  and updateBy != ''  ">update_by = #{updateBy},</if>
+            <if test="updateTime != null  ">update_time = #{updateTime},</if>
+            <if test="delFlag != null  and delFlag != ''  ">del_flag = #{delFlag},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+	<delete id="deleteContentById" parameterType="Integer">
+        delete from m_content where id = #{id}
+    </delete>
+	
+    <delete id="deleteContentByIds" parameterType="String">
+        delete from m_content where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>
