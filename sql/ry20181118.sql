@@ -23,7 +23,7 @@ CREATE TABLE `demo` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键编码',
   `name` varchar(255) DEFAULT NULL COMMENT '名称',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='测试';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='测试类';
 
 -- ----------------------------
 -- Records of demo
