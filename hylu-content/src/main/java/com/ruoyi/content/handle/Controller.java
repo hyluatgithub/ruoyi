@@ -31,7 +31,7 @@ public class Controller {
         /*
          * 对于每次抓取，您需要添加一些种子网址。 这些是抓取的第一个URL，然后抓取工具开始跟随这些页面中的链接
          */
-        controller.addSeed("https://weibo.com/u/");
+        controller.addSeed("https://music.163.com/api/user/getfollows/1?offset=0&limit=1000&order=true");
 //        controller.addSeed("http://www.ics.uci.edu/~welling/");
 //        controller.addSeed("http://www.ics.uci.edu/");
 

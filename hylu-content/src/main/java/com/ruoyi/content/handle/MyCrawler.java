@@ -4,6 +4,8 @@ import edu.uci.ics.crawler4j.crawler.Page;
 import edu.uci.ics.crawler4j.crawler.WebCrawler;
 import edu.uci.ics.crawler4j.parser.HtmlParseData;
 import edu.uci.ics.crawler4j.url.WebURL;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 import java.util.Set;
 import java.util.regex.Pattern;
@@ -48,18 +50,20 @@ public class MyCrawler extends WebCrawler {
      */
     @Override
     public void visit(Page page) {
-        String url = page.getWebURL().getURL(); // 获取url
-        System.out.println("URL: " + url);
-
+//        String url = page.getWebURL().getURL(); // 获取url
+//        System.out.println("URL: " + url);
         if (page.getParseData() instanceof HtmlParseData) { // 判断是否是html数据
             HtmlParseData htmlParseData = (HtmlParseData) page.getParseData();  // 强制类型转换，获取html数据对象
             String text = htmlParseData.getText();  //获取页面纯文本（无html标签）
             String html = htmlParseData.getHtml();  //获取页面Html
             Set<WebURL> links = htmlParseData.getOutgoingUrls();    // 获取页面输出链接
 
+            Document doc = Jsoup.parse(html);//采用jsoup解析html，这个大家不会可以简单搜一下
+
             System.out.println("Text length: " + text.length());
             System.out.println("Html length: " + html.length());
             System.out.println("Number of outgoing links: " + links.size());
+            System.out.println("Document length: " + doc.outerHtml());
         }
     }
 }
