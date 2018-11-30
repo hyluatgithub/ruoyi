@@ -47,6 +47,7 @@
 		<module>ruoyi-generator</module>
         <module>ruoyi-common</module>
         <module>hylu-content</module>
+		<module>ruoyi-test</module>
 	</modules>
     <packaging>pom</packaging>
 
