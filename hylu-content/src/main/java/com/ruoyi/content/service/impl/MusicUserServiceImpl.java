@@ -6,6 +6,7 @@ import com.ruoyi.content.mapper.MusicUserMapper;
 import com.ruoyi.content.service.IMusicUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +37,18 @@ public class MusicUserServiceImpl implements IMusicUserService {
             return musicUserMapper.insertMusicUser(musicUser);
         }
         return 0;
+    }
+
+    /**
+     * 批量新增用户
+     *
+     * @param musicUserArr 用户信息列表
+     * @return 结果
+     */
+    @Override
+    @Transactional
+    public int insertMusicUserBatch(ArrayList<MusicUser> musicUserArr) {
+        return musicUserMapper.insertMusicUserBatch(musicUserArr);
     }
 
     /**

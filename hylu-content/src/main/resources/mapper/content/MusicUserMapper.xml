@@ -1,27 +1,28 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ruoyi.content.mapper.MusicUserMapper">
-    
+
     <resultMap type="com.ruoyi.content.domain.MusicUser" id="MusicUserResult">
-        <result property="id"    column="id"    />
-        <result property="userId"    column="user_id"    />
-        <result property="nickname"    column="nickname"    />
-        <result property="remarkName"    column="remark_name"    />
-        <result property="avatar"    column="avatar"    />
-        <result property="py"    column="py"    />
-        <result property="gender"    column="gender"    />
-        <result property="eventCount"    column="event_count"    />
-        <result property="followCount"    column="follow_count"    />
-        <result property="fanCount"    column="fan_count"    />
-        <result property="signature"    column="signature"    />
-        <result property="authStatus"    column="auth_status"    />
-        <result property="userType"    column="user_type"    />
-        <result property="hasUsed"    column="has_used"    />
+        <result property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="nickname" column="nickname"/>
+        <result property="remarkName" column="remark_name"/>
+        <result property="avatar" column="avatar"/>
+        <result property="py" column="py"/>
+        <result property="gender" column="gender"/>
+        <result property="eventCount" column="event_count"/>
+        <result property="followCount" column="follow_count"/>
+        <result property="fanCount" column="fan_count"/>
+        <result property="signature" column="signature"/>
+        <result property="authStatus" column="auth_status"/>
+        <result property="userType" column="user_type"/>
+        <result property="hasUsed" column="has_used"/>
+        <result property="createTime" column="create_time"/>
     </resultMap>
-	
-	<sql id="selectMusicUserVo">
+
+    <sql id="selectMusicUserVo">
         select id, user_id, nickname, remark_name, avatar, py, gender, event_count, follow_count, fan_count, signature, auth_status, user_type from music_user
     </sql>
 
@@ -34,30 +35,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <select id="selectMusicUserList" parameterType="com.ruoyi.content.domain.MusicUser" resultMap="MusicUserResult">
         <include refid="selectMusicUserVo"/>
-        <where>  
-            <if test="id != null "> and id = #{id}</if>
-             <if test="userId != null  and userId != '' "> and user_id = #{userId}</if>
-             <if test="nickname != null  and nickname != '' "> and nickname = #{nickname}</if>
-             <if test="remarkName != null  and remarkName != '' "> and remark_name = #{remarkName}</if>
-             <if test="avatar != null  and avatar != '' "> and avatar = #{avatar}</if>
-             <if test="py != null  and py != '' "> and py = #{py}</if>
-             <if test="gender != null "> and gender = #{gender}</if>
-             <if test="eventCount != null "> and event_count = #{eventCount}</if>
-             <if test="followCount != null "> and follow_count = #{followCount}</if>
-             <if test="fanCount != null "> and fan_count = #{fanCount}</if>
-             <if test="signature != null  and signature != '' "> and signature = #{signature}</if>
-             <if test="authStatus != null "> and auth_status = #{authStatus}</if>
-             <if test="userType != null "> and user_type = #{userType}</if>
-         </where>
+        <where>
+            <if test="id != null ">and id = #{id}</if>
+            <if test="userId != null  and userId != '' ">and user_id = #{userId}</if>
+            <if test="nickname != null  and nickname != '' ">and nickname = #{nickname}</if>
+            <if test="remarkName != null  and remarkName != '' ">and remark_name = #{remarkName}</if>
+            <if test="avatar != null  and avatar != '' ">and avatar = #{avatar}</if>
+            <if test="py != null  and py != '' ">and py = #{py}</if>
+            <if test="gender != null ">and gender = #{gender}</if>
+            <if test="eventCount != null ">and event_count = #{eventCount}</if>
+            <if test="followCount != null ">and follow_count = #{followCount}</if>
+            <if test="fanCount != null ">and fan_count = #{fanCount}</if>
+            <if test="signature != null  and signature != '' ">and signature = #{signature}</if>
+            <if test="authStatus != null ">and auth_status = #{authStatus}</if>
+            <if test="userType != null ">and user_type = #{userType}</if>
+        </where>
     </select>
-    
+
     <select id="selectMusicUserById" parameterType="Long" resultMap="MusicUserResult">
         <include refid="selectMusicUserVo"/>
         where id = #{id}
     </select>
 
     <select id="selectSeedMusicUserId" resultType="java.lang.String">
-        select user_id from music_user where id > #{startId} and has_used = 0 limit #{stepNum}
+        select user_id from music_user where id > #{startId} and has_used = 0 order by id limit #{stepNum}
     </select>
 
     <insert id="insertMusicUser" parameterType="com.ruoyi.content.domain.MusicUser">
@@ -95,16 +96,40 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="hasUsed != null  ">#{hasUsed}</if>
         </trim>
     </insert>
+    <insert id="insertMusicUserBatch">
+        INSERT IGNORE INTO music_user
+        (id, user_id, nickname, remark_name, avatar, py, gender, event_count, follow_count, fan_count, signature,
+        auth_status, user_type, create_time)
+        VALUES
+        <foreach collection="list" item="user" separator=",">
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                #{user.id},
+                #{user.userId},
+                #{user.nickname},
+                #{user.remarkName},
+                #{user.avatar},
+                #{user.py},
+                #{user.gender},
+                #{user.eventCount},
+                #{user.followCount},
+                #{user.fanCount},
+                #{user.signature},
+                #{user.authStatus},
+                #{user.userType},
+                #{user.createTime}
+            </trim>
+        </foreach>
+    </insert>
 
-	<delete id="deleteMusicUserById" parameterType="Long">
+    <delete id="deleteMusicUserById" parameterType="Long">
         delete from music_user where id = #{id}
     </delete>
-	
+
     <delete id="deleteMusicUserByIds" parameterType="String">
-        delete from music_user where id in 
+        delete from music_user where id in
         <foreach item="id" collection="array" open="(" separator="," close=")">
             #{id}
         </foreach>
     </delete>
-    
+
 </mapper>

@@ -22,6 +22,14 @@ public interface IMusicUserService
 	public int insertMusicUser(MusicUser musicUser);
 
 	/**
+	 * 批量新增用户
+	 *
+	 * @param musicUserArr 用户信息列表
+	 * @return 结果
+	 */
+	public int insertMusicUserBatch(ArrayList<MusicUser> musicUserArr);
+
+	/**
      * 查询用户信息
      * 
      * @param id 用户ID
