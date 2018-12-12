@@ -29,7 +29,7 @@ CREATE TABLE `music_user` (
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `has_used` int(11) DEFAULT '0' COMMENT '状态：1已使用 0未使用',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12300 DEFAULT CHARSET=utf8 COMMENT='用户信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='用户信息表';
 
 
 
