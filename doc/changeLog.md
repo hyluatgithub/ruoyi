@@ -31,5 +31,30 @@ CREATE TABLE `music_user` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='用户信息表';
 
+#网络资源
+CREATE TABLE `web_resource_menu` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `type` varchar(20) DEFAULT NULL COMMENT '类型：图片 小说 视频 音乐',
+  `item` varchar(50) DEFAULT NULL COMMENT '归属类别',
+  `title` varchar(255) DEFAULT NULL COMMENT '标题',
+  `date_time` varchar(20) DEFAULT NULL COMMENT '日期',
+  `cover` varchar(255) DEFAULT NULL COMMENT '封面',
+  `url` varchar(255) DEFAULT NULL COMMENT '资源路径',
+  `create_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='网络资源-种子目录';
+
+
+CREATE TABLE `web_resource_img` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `parent_id` int(11) DEFAULT NULL COMMENT '归属项',
+  `parent_title` varchar(255) DEFAULT NULL COMMENT '归属项标题',
+  `name` varchar(50) DEFAULT NULL COMMENT '编码',
+  `url` varchar(255) DEFAULT NULL COMMENT '资源地址',
+  `create_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='网络资源-资源详情(图片)';
+
+
 
 
