@@ -57,4 +57,6 @@ public interface MusicUserMapper
 	ArrayList<String> selectSeedMusicUserId(@Param("startId") String startId, @Param("stepNum")int stepNum);
 
 	int updateMusicUserUsed(String[] ids);
+
+	int insertMusicUserBatch(ArrayList<MusicUser> musicUserArr);
 }
