@@ -25,6 +25,7 @@
 		<kaptcha.version>2.3.2</kaptcha.version>
 		<swagger.version>2.7.0</swagger.version>
 		<pagehelper.boot.version>1.2.5</pagehelper.boot.version>
+		<spring.boot.version>2.0.5.RELEASE</spring.boot.version>
 	</properties>
 	
     <dependencyManagement>
@@ -66,6 +67,13 @@
             <artifactId>mybatis-spring-boot-starter</artifactId>
             <version>${mybatis.boot.version}</version>
         </dependency>
+
+		<!-- SpringBoot集成redis框架 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+			<version>${spring.boot.version}</version>
+		</dependency>
 
         <!-- Mysql驱动包 -->
         <dependency>

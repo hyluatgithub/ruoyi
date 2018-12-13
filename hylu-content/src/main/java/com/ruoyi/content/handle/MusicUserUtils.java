@@ -35,6 +35,10 @@ public class MusicUserUtils {
     private ArrayList<MusicUser> WAITING_SAVE_USER = new ArrayList<>(MAX_SIZE);
 
     public static void main(String[] args) {
+        // 同时支持代理 HTTP/HTTPS 请求
+        System.setProperty("proxyHost", "121.31.177.202");
+        System.setProperty("proxyPort", "8123");
+
         MusicUserUtils musicUserUtils = new MusicUserUtils();
         musicUserUtils.start(new ArrayList<>());
     }
@@ -56,6 +60,7 @@ public class MusicUserUtils {
         if (userIdList != null) {
             for (String userId : userIdList) {
                 System.out.println("开始查询编码[" + userId + "]的关注列表");
+                this.sleep(500);   //查询间隔1s 反封ip
 //                this.getMusicFollowsById(userId);
                 this.getMusicFollowsBatchById(userId);
             }
@@ -71,12 +76,7 @@ public class MusicUserUtils {
             String lastUserId = userIdList.get(userIdList.size() - 1);
             userIdList = this.getUserIdListFromDB(lastUserId);
             if (userIdList.size() > 0) {
-                //防止过于频繁访问被封ip，每批次间隔，休息30s
-                try {
-                    Thread.sleep(30000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+//                this.sleep(1000);   //查询间隔1s 反封ip
                 start(userIdList);
             }
         }
@@ -301,5 +301,17 @@ public class MusicUserUtils {
         return hasSaved;
     }
 
+
+    /**
+     * 休眠
+     */
+    private void sleep(long millis) {
+        //防止过于频繁访问被封ip，每批次间隔，休息30s
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.content.mapper.ResourceMenuMapper">
+
+    <resultMap type="com.ruoyi.content.domain.ResourceMenu" id="ResourceMenuResult">
+        <result property="id" column="id"/>
+        <result property="type" column="type"/>
+        <result property="item" column="item"/>
+        <result property="title" column="title"/>
+        <result property="dateTime" column="date_time"/>
+        <result property="cover" column="cover"/>
+        <result property="url" column="url"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <sql id="selectResourceMenuVo">
+        select id, type, item, title, date_time, cover, url, create_time from web_resource_menu
+    </sql>
+
+    <select id="selectResourceMenuList" parameterType="com.ruoyi.content.domain.ResourceMenu"
+            resultMap="ResourceMenuResult">
+        <include refid="selectResourceMenuVo"/>
+        <where>
+            <if test="id != null ">and id = #{id}</if>
+            <if test="type != null  and type != '' ">and type = #{type}</if>
+            <if test="item != null  and item != '' ">and item = #{item}</if>
+            <if test="title != null  and title != '' ">and title = #{title}</if>
+            <if test="dateTime != null  and dateTime != '' ">and date_time = #{dateTime}</if>
+            <if test="cover != null  and cover != '' ">and cover = #{cover}</if>
+            <if test="url != null  and url != '' ">and url = #{url}</if>
+            <if test="createTime != null ">and create_time = #{createTime}</if>
+        </where>
+    </select>
+
+    <select id="selectResourceMenuById" parameterType="Integer" resultMap="ResourceMenuResult">
+        <include refid="selectResourceMenuVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertResourceMenu" parameterType="com.ruoyi.content.domain.ResourceMenu">
+        insert into web_resource_menu
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null  ">id,</if>
+            <if test="type != null  and type != ''  ">type,</if>
+            <if test="item != null  and item != ''  ">item,</if>
+            <if test="title != null  and title != ''  ">title,</if>
+            <if test="dateTime != null  and dateTime != ''  ">date_time,</if>
+            <if test="cover != null  and cover != ''  ">cover,</if>
+            <if test="url != null  and url != ''  ">url,</if>
+            <if test="createTime != null  ">create_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null  ">#{id},</if>
+            <if test="type != null  and type != ''  ">#{type},</if>
+            <if test="item != null  and item != ''  ">#{item},</if>
+            <if test="title != null  and title != ''  ">#{title},</if>
+            <if test="dateTime != null  and dateTime != ''  ">#{dateTime},</if>
+            <if test="cover != null  and cover != ''  ">#{cover},</if>
+            <if test="url != null  and url != ''  ">#{url},</if>
+            <if test="createTime != null  ">#{createTime},</if>
+        </trim>
+    </insert>
+
+    <update id="updateResourceMenu" parameterType="com.ruoyi.content.domain.ResourceMenu">
+        update web_resource_menu
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="type != null  and type != ''  ">type = #{type},</if>
+            <if test="item != null  and item != ''  ">item = #{item},</if>
+            <if test="title != null  and title != ''  ">title = #{title},</if>
+            <if test="dateTime != null  and dateTime != ''  ">date_time = #{dateTime},</if>
+            <if test="cover != null  and cover != ''  ">cover = #{cover},</if>
+            <if test="url != null  and url != ''  ">url = #{url},</if>
+            <if test="createTime != null  ">create_time = #{createTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteResourceMenuById" parameterType="Integer">
+        delete from web_resource_menu where id = #{id}
+    </delete>
+
+    <delete id="deleteResourceMenuByIds" parameterType="String">
+        delete from web_resource_menu where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

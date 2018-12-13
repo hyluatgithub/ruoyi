@@ -32,8 +32,20 @@
         <!--引入第三方工具类-->
         <dependency>
             <groupId>cn.hutool</groupId>
-            <artifactId>hutool-json</artifactId>
+            <artifactId>hutool-all</artifactId>
             <version>4.2.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.6</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.oscroll</groupId>
+            <artifactId>strawboat</artifactId>
+            <version>1.0.1</version>
         </dependency>
     </dependencies>
 </project>

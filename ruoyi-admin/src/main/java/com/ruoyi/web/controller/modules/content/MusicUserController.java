@@ -76,6 +76,8 @@ public class MusicUserController extends BaseController
 	@ResponseBody
 	public AjaxResult getFollows()
 	{
+        System.setProperty("proxyHost", "39.108.219.137");
+        System.setProperty("proxyPort", "8118");
 		musicUserUtils.start(new ArrayList<>());
 		return new AjaxResult();
 	}

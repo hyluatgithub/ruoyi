@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.content.mapper.ResourceImgMapper">
+
+    <resultMap type="com.ruoyi.content.domain.ResourceImg" id="ResourceImgResult">
+        <result property="id" column="id"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="parentTitle" column="parent_title"/>
+        <result property="name" column="name"/>
+        <result property="url" column="url"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <sql id="selectResourceImgVo">
+        select id, parent_id, parent_title, name, url, create_time from web_resource_img
+    </sql>
+
+    <select id="selectResourceImgList" parameterType="com.ruoyi.content.domain.ResourceImg"
+            resultMap="ResourceImgResult">
+        <include refid="selectResourceImgVo"/>
+        <where>
+            <if test="id != null ">and id = #{id}</if>
+            <if test="parentId != null ">and parent_id = #{parentId}</if>
+            <if test="parentTitle != null  and parentTitle != '' ">and parent_title = #{parentTitle}</if>
+            <if test="name != null  and name != '' ">and name = #{name}</if>
+            <if test="url != null  and url != '' ">and url = #{url}</if>
+            <if test="createTime != null ">and create_time = #{createTime}</if>
+        </where>
+    </select>
+
+    <select id="selectResourceImgById" parameterType="Integer" resultMap="ResourceImgResult">
+        <include refid="selectResourceImgVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertResourceImg" parameterType="com.ruoyi.content.domain.ResourceImg">
+        insert into web_resource_img
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null  ">id,</if>
+            <if test="parentId != null  ">parent_id,</if>
+            <if test="parentTitle != null  and parentTitle != ''  ">parent_title,</if>
+            <if test="name != null  and name != ''  ">name,</if>
+            <if test="url != null  and url != ''  ">url,</if>
+            <if test="createTime != null  ">create_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null  ">#{id},</if>
+            <if test="parentId != null  ">#{parentId},</if>
+            <if test="parentTitle != null  and parentTitle != ''  ">#{parentTitle},</if>
+            <if test="name != null  and name != ''  ">#{name},</if>
+            <if test="url != null  and url != ''  ">#{url},</if>
+            <if test="createTime != null  ">#{createTime},</if>
+        </trim>
+    </insert>
+
+    <update id="updateResourceImg" parameterType="com.ruoyi.content.domain.ResourceImg">
+        update web_resource_img
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="parentId != null  ">parent_id = #{parentId},</if>
+            <if test="parentTitle != null  and parentTitle != ''  ">parent_title = #{parentTitle},</if>
+            <if test="name != null  and name != ''  ">name = #{name},</if>
+            <if test="url != null  and url != ''  ">url = #{url},</if>
+            <if test="createTime != null  ">create_time = #{createTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteResourceImgById" parameterType="Integer">
+        delete from web_resource_img where id = #{id}
+    </delete>
+
+    <delete id="deleteResourceImgByIds" parameterType="String">
+        delete from web_resource_img where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>
